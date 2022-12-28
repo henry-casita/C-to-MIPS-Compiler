@@ -1,0 +1,96 @@
+Assembly code templates
+
+$zero	$0	constant 0	
+$at	$1	assembler temporary	
+$v0–$v1	$2–$3	values for function returns and expression evaluation	
+$a0–$a3	$4–$7	function arguments	
+$t0–$t7	$8–$15	temporaries	
+$s0–$s7	$16–$23	saved temporaries
+$t8–$t9	$24–$25	temporaries
+$k0–$k1	$26–$27	reserved for OS kernel
+$gp	$28	global pointer	
+$sp	$29	stack pointer
+$fp	$30	frame pointer
+$ra	$31	return address
+
+Add (a + b = x): 
+lw      $v0, addr(a)
+lw      $v1, addr(b)
+nop
+addu    $v0,$v1,$v0
+sw      $v0, addr(x)
+
+Sub (a + b = x): 
+lw      $v0, addr(a)
+lw      $v1, addr(b)
+nop
+subu    $v0,$v1,$v0
+sw      $v0, addr(x)
+
+Do exact same for logical expressions or, and, xor
+
+Mult (a * b = x)
+
+lw      $v0, addr(a)
+lw      $v1, addr(b)
+nop
+mult    $v0, $v1
+mflo    $v0    
+sw      $v0, addr(x)
+
+Div (a * b = x):
+lw      $v0, addr(a)
+lw      $v1, addr(b)
+nop
+div    $v0, $v1
+mflo    $v0    
+sw      $v0, addr(x)
+
+If(a==b)do thing x, else do thing y:
+lw      $v1,addr(a)
+lw      $v0,addr(b)
+nop
+bne     $v0,$v1,$(x code)
+nop
+y code
+
+If less than (a<b):
+lw      $v1,addr(a)
+lw      $v0,addr(b)
+nop
+slt     $v0,$v1,$v0
+beq     $v0,$0,$(if true code)
+nop
+else code
+
+If greater than (a>b):
+lw      $v1,addr(a)
+lw      $v0,addr(b)
+nop
+slt     $v0,$v0,$v1
+beq     $v0,$0,$(if true code)
+nop
+else code
+
+While(i<a) i=i+1:
+lw      $v1,addr(a)                         #preliminary code
+
+lw      $v0,addr(i)                         #condition check code
+nop
+slt     $v0,$v0,$v1
+beq     $2,$0,$(rest of code)
+nop
+
+lw      $v0,addr(i)                         #while loop content
+nop
+addiu   $v0,$v0,1
+sw      $v0,addr(i)
+b       $(start of condition check)         #branch back to condtion check
+nop
+rest of code
+
+
+
+
+
+
