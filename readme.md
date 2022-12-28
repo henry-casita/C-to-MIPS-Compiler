@@ -29,22 +29,20 @@ This directory contains all the test cases used to evaluate the functional corre
 
 include
 -------
-This directory contains all the header files for our compiler, including the nodes used to develop our [**AST**](include/ast) which we use to generate our assembly, as well as other [*helper functions*](include/parser_list.hpp) for our parser and [*context*](include/ast/context.hpp) used in code generation. The implementaiton for these files is done seperately in [**src**](src/include_impl/ast) to make re-compiling for troubleshooting purposes more efficient. The base class for our AST is [*node*](include/ast/ast_node.hpp), and all of our other AST constructs build off it, with each node serving a specific purpose in code generation, allowing a precise AST representation to be created by our parser.
+This directory contains all the header files for our compiler, including the nodes used to develop our [**AST**](include/ast) which we use to generate our assembly, as well as [*context*](include/ast/context.hpp) used in code generation. The base class for our AST is [*node*](include/ast/ast_node.hpp), and all of our other AST constructs build off it, with each node serving a specific purpose in code generation, allowing a precise AST representation to be created by our parser.
 
 src
 ---
-As well as containing the [*implementation for our header files*](src/include_impl/ast), this directory also contains the source code for our [*parser*](src/parser.y) written in Yacc and accompanying [*lexer*](src/lexer.flex) written in flex, which are used to initially process the input source code and generate the AST. [*compiler.cpp*](src/compiler.cpp) contains the source code for our actual compiler, and mostly contains any directives needed at the start of the assembly code, as well as some formatting for visualisation.
+This directory also contains the source code for our [*parser*](src/parser.y) written in Yacc and accompanying [*lexer*](src/lexer.flex) written in flex, which are used to initially process the input source code and generate the AST. [*compiler.cpp*](src/compiler.cpp) contains the source code for our actual compiler, and mostly contains any directives needed at the start of the assembly code, as well as some formatting for visualisation.
 
-<a name="utility"></a>utility
+utility scripts
 -----------------------------
-The [**utility**](utility) directory contains several scripts that can be used to test / visualise our compiler.
-- [*test_dir.sh*](utility/test_dir.sh) can be used to test the functionality of all cases of a particular sub-directory of [**compiler_tests**](compiler_tests), or every test in the directory if no particular directory is specified. It can be invoked from the base directory as follows:
-`utility/test_dir.sh <subdirectory_name> (optional)`
 
-- [*test_single.sh*](utility/test_single.sh) can be used to test the functionality and visualise the produced AST and MIPS assembly of a particular test case. It can be invoked from the base directory as follows:
-`utility/test_single.sh <test_name>`
+- [*single.sh*](single.sh) can be used to test the functionality of a particular test case. It can be invoked from the base directory as follows:
+`single.sh <test_name>`
 where `<test_name>` is the name of the c-file being tested, i.e. return_constant.c
 
-- [*test_test.sh*](utility/test_test.sh) is more used in the creation of new test cases, but is essentially used to verify the correctness of a test case and its accompanying driver code by using `gcc` to run and simulate the code and ensuring it runs correctly. If you feel like adding any test cases of your own to play around with, you can verify them by invoking:
-`utility/test_test.sh <test_path>`
-where `<test_path>` is the full path to a particular test, i.e. compiler_tests/control_flow/for_multiple.c
+- [*all.sh*](all.sh) can be used to test the functionality of all test cases. It can be invoked from the base directory as follows:
+`all.sh`
+
+
