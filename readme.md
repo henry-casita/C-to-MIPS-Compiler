@@ -20,7 +20,7 @@ The command-line parameters must be provided in the order outlined above (with t
 
 admin
 -----
-This directory primarily contains documentation produced over the duration of the project, with [*log.md*](admin/log.md) tracking a timeline of the project goals that were set and achieved, as well as brief notes detailing our design approach. It also contains the specification for both the compiler and management components of the coursework. [*notes.md*](admin/notes.md) is a document that (very messily) contains notes about some of aspects of the coursework that were particularly difficult to implement, including stack/frame management, global variables and float implementation.
+This directory contains documentation produced over the duration of the project, with [*work_distribution.md*](admin/work_distribution.md) tracking a timeline of the project goals that were set and achieved. It also contains the specification for both the compiler and management components of the coursework.
 
 
 compiler_tests
